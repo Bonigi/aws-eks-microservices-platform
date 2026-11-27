@@ -1,0 +1,16 @@
+# helm install monitoring prometheus-community/kube-prometheus-stack \
+#   -n monitoring --create-namespace -f monitoring/kube-prometheus-stack-values.yaml
+prometheus:
+  prometheusSpec:
+    # Pick up ServiceMonitors from all namespaces, not only this Helm release
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    retention: 2d
+
+grafana:
+  service:
+    type: LoadBalancer
+  defaultDashboardsEnabled: true
+
+alertmanager:
+  enabled: false
